@@ -32,7 +32,7 @@ const Stake: NextPage = () => {
   const { contract, isLoading } = useContract(stakingContractAddress);
   const { data: ownedNfts } = useOwnedNFTs(nftDropContract, address);
   const { data: tokenBalance } = useTokenBalance(tokenContract, address);
-  const [claimableRewards, setClaimableRewards] = useState<BigNumber>();
+  const [claimableRewards, setClaimableRewards] = useState<BigNumber.from>();
   const { data: stakedTokens } = useContractRead(contract, "getStakeInfo", [
     address,
   ]);
@@ -106,7 +106,7 @@ const Stake: NextPage = () => {
           <h2>Your Staked NFTs</h2>
           <div className={styles.nftBoxGrid}>
             {stakedTokens &&
-              stakedTokens[0]?.map((stakedToken: BigNumber.from) => (
+              stakedTokens[0]?.map((stakedToken: BigNumber) => (
                 <NFTCard
                   tokenId={stakedToken.toNumber()}
                   key={stakedToken.toString()}

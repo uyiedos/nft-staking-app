@@ -8,7 +8,7 @@ import {
   useTokenBalance,
   Web3Button,
 } from "@thirdweb-dev/react";
-import { bignumber, ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import NFTCard from "../components/NFTCard";
@@ -32,7 +32,7 @@ const Stake: NextPage = () => {
   const { contract, isLoading } = useContract(stakingContractAddress);
   const { data: ownedNfts } = useOwnedNFTs(nftDropContract, address);
   const { data: tokenBalance } = useTokenBalance(tokenContract, address);
-  const [claimableRewards, setClaimableRewards] = useState<bignumber>();
+  const [claimableRewards, setClaimableRewards] = useState<BigNumber>();
   const { data: stakedTokens } = useContractRead(contract, "getStakeInfo", [
     address,
   ]);
@@ -106,7 +106,7 @@ const Stake: NextPage = () => {
           <h2>Your Staked NFTs</h2>
           <div className={styles.nftBoxGrid}>
             {stakedTokens &&
-              stakedTokens[0]?.map((stakedToken: bignumber) => (
+              stakedTokens[0]?.map((stakedToken: BigNumber.from) => (
                 <NFTCard
                   tokenId={stakedToken.toNumber()}
                   key={stakedToken.toString()}
